@@ -282,9 +282,9 @@ window.addEventListener('load', () => {
 
 //clear suggestions when clicking outside
 
-document.addeventlistener('click', (e) => {
-  if (!e.target.closest('search') && !e.target.closest('.suggestions')) {
-    suggestions,innerHTML = '';
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.search') && !e.target.closest('.suggestions')) {
+    suggestions.innerHTML = '';
   }
 });
 
