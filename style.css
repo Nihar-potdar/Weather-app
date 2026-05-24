@@ -1,0 +1,330 @@
+@import url("https://fonts.googleapis.com/css2?family=Intel+One+Mono:ital,wght@0,300..700;1,300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sora:wght@100..800&display=swap");
+
+.condition:empty,
+.recent-searches:empty,
+.error-message:empty,
+.city:empty,
+.temp:empty {
+  display: none;
+}
+
+* {
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(daniel-ramirez-q4TfWtnz_xw-unsplash.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: 0.5s ease;
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  flex-direction: column;
+  font-family: "Inter", sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  padding: 40px;
+  width: 90%;
+  max-width: 600px;
+  gap: 6px;
+  overflow: visible;
+}
+
+.city {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  text-align: center;
+}
+
+.temp {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  padding: 10px;
+  max-width: 500px;
+}
+
+.condition {
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.85;
+  text-align: center;
+}
+
+.searchbtn > button {
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 10px 20px;
+  display: flex;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  padding: 6px 6px 6px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 100%;
+  margin-top: 5px;
+  padding: 15px;
+  max-width: 500px;
+  position: relative;
+}
+
+.search > input {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  flex: 1;
+  outline: none;
+  padding: 2px 0;
+}
+
+.search > input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.error-message {
+  font-family: "Inter", sans-serif;
+  font-size: 2.5rem;
+  padding: 20px;
+  max-width: 500px;
+}
+
+.city {
+  max-width: 500px;
+}
+
+.suggestions {
+  width: calc(100% - 60px);
+  margin: 0 30px;
+  padding: 5px 0;
+  max-width: 100%;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  font-size: 1.2rem;
+  font-weight: 400;
+  animation: dropdown 0.2s ease;
+  color: #111;
+}
+
+@keyframes dropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.suggestion-item {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  color: black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 8px 12px;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-loading {
+  padding: 8px 12px;
+  font-style: italic;
+  opacity: 0.6;
+  font-size: 0.85rem;
+}
+
+.suggestion-item:hover {
+  background: lightgray;
+}
+
+.suggestions:empty {
+  display: none;
+}
+
+.suggestion-item.active {
+  background-color: rgba(8, 7, 7, 0.25);
+  cursor: pointer;
+}
+
+.hourlytemp {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  width: 90%;
+  padding: 10px 15px 15px;
+  justify-content: flex-start;
+  font-size: 1rem;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  margin-bottom: 8px;
+  
+}
+
+.hour-card {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  min-width: 120px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 15px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  text-align: center;
+  font-size: 1rem;
+  transition: all 0.1s ease-in-out;
+  overflow: visible;
+}
+
+.hour-card:hover {
+  transform: translateY(-8px);
+}
+
+.hour-card .time {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.hour-card .temperature {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.hour-card .condition {
+  font-size: 0.9rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.hour-card > h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.hour-card {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loading {
+  width: 60px;
+  height: 60px;
+  border: 6px solid white;
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.welcome-icon {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.welcome-title {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: 600;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.quick-city {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 14px;
+  padding: 14px 20px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: background 0.2s ease;
+  min-width: 90px;
+}
+
+.quick-city span {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  font-weight: 500;
+}
+
+.quick-city:hover {
+  background: rgba(255,255,255,0.2);
+}
