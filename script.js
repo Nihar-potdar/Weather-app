@@ -1,7 +1,3 @@
-import lottie from 'lottie-web';
-import rainAnimation from '@meteocons/lottie/fill/clearDay.json';
-
-
 const search = document.querySelector(".searchbtn button");
 
 const inputSearch = document.querySelector("#search");
@@ -66,6 +62,8 @@ async function fetchWeather(city) {
     const data = await response.json();
     hourlyContainer.innerHTML = "";
     cityElement.textContent = data.address;
+    inputSearch.value = '';
+    suggestions.innerHTML = '';
     tempElement.textContent = `${data.days[0].temp}°C`;
     renderHourlyForecast(data.days[0].hours);
     updateBackground(data.days[0].conditions);
@@ -81,7 +79,7 @@ async function fetchWeather(city) {
 }
 
 search.addEventListener("click", () => {
-  const city = inputSearch.value;
+  const city = inputSearch.value.trim();
 
   if (city === "") return;
 
@@ -281,5 +279,13 @@ window.addEventListener('load', () => {
     }
   )
 })
+
+//clear suggestions when clicking outside
+
+document.addeventlistener('click', (e) => {
+  if (!e.target.closest('search') && !e.target.closest('.suggestions')) {
+    suggestions,innerHTML = '';
+  }
+});
 
 
