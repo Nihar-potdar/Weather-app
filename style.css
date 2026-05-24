@@ -328,3 +328,122 @@
 .quick-city:hover {
   background: rgba(255,255,255,0.2);
 }
+
+/* ── Mobile (under 480px) ── */
+@media (max-width: 480px) {
+
+  /* Card takes full width on small screens */
+  .main-content {
+    width: 95%;
+    padding: 24px 16px;
+    border-radius: 20px;
+    gap: 8px;
+  }
+
+  /* Smaller city name */
+  .city {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+    text-align: center;
+  }
+
+  /* Smaller temperature */
+  .temp {
+    font-size: clamp(2.5rem, 12vw, 3.5rem);
+    text-align: center;
+  }
+
+  /* Search bar stacks on very small screens */
+  .search {
+    padding: 14px;
+  }
+
+  .search > input {
+    font-size: 0.9rem;
+  }
+
+  .searchbtn > button {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+
+  /* Hourly cards smaller */
+  .hour-card {
+    min-width: 85px;
+    padding: 10px 8px;
+  }
+
+  .hour-card > h1 {
+    font-size: 1.8rem;
+  }
+
+  .hour-card .temperature {
+    font-size: 1.1rem;
+  }
+
+  .hour-card .time {
+    font-size: 0.8rem;
+  }
+
+  .hour-card .condition {
+    font-size: 0.7rem;
+  }
+
+  /* Error message smaller */
+  .error-message {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  /* Quick city chips wrap */
+  .hourlytemp {
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  /* Recent searches full width */
+  .recent-item {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+  }
+}
+
+/* ── Tablet (480px to 768px) ── */
+@media (min-width: 480px) and (max-width: 768px) {
+
+  .main-content {
+    width: 92%;
+    padding: 30px 24px;
+  }
+
+  .hour-card {
+    min-width: 95px;
+  }
+
+  .hour-card .temperature {
+    font-size: 1.2rem;
+  }
+}
+
+.suggestion-item,
+.recent-item,
+.quick-city,
+.searchbtn > button {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.search > input {
+  font-size: 16px; /* never go below 16px on mobile */
+}
+
+.hourlytemp {
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 480px) {
+  .hourlytemp {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
