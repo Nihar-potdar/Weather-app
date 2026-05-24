@@ -247,6 +247,8 @@ window.addEventListener('load', () => {
 
   if(!navigator.geolocation) return;
 
+  showLoader();
+
   navigator.geolocation.getCurrentPosition(
     async(position) => {
       const {latitude, longitude} = position.coords;
