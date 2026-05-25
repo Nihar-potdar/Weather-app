@@ -19,6 +19,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
   background-image: url(daniel-ramirez-q4TfWtnz_xw-unsplash.jpg);
@@ -446,4 +447,32 @@
     -webkit-mask-image: none;
     mask-image: none;
   }
+}
+
+.dayforecast {
+  display: flex;
+  align-items: end;
+  width: 100vw;
+  justify-content: center;
+  margin-top: 100px;
+  margin-left: 300px;
+  margin-right: 300px;
+}
+
+.dayforecast > .daycard {
+  background: rgba(255, 255, 255, 0.15);
+  min-width: 350px;
+  padding: 35px;
+  margin: 5px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.dayforecast > .daycard > h3,h1,p,span {
+  display: flex;
+  justify-content: center;
 }
