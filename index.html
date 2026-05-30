@@ -7,22 +7,32 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
     <div class="background">
+        <div class="header">
+             <div class="favourites"><button>
+                <i class="fa-solid fa-star"></i>
+            Favourites</button>
+        <div class="favouritesContainer"></div>
+        </div>
+        </div>
+       
         <div class="main-content" id="weather">
 
             <div class="loading hidden"></div>
 
             <!-- 1. City at the top -->
+            <div class="fav-btn"><i class="fa-solid fa-star"></i></div>
             <div class="city"></div>
             <div class="temp"></div>
             <div class="condition"></div>
-
+            
             <!-- 2. Hourly forecast -->
             <div class="hourlytemp"></div>
-
+            
             <!-- 3. Error inside the card -->
             <div class="error-message"></div>
-
+            
             <!-- 4. Search at the bottom, button INSIDE search -->
             <div class="search">
                 <input type="text" placeholder="Search city..." id="search">
@@ -35,9 +45,11 @@
             <div class="recent-searches"></div>
 
             
+            
         </div>
         <div class="dayforecast"></div>
     </div>
     <script type='module' src="./js/main.js"></script>
+    <script src="https://kit.fontawesome.com/e00a049cef.js" crossorigin="anonymous"></script>
 </body>
 </html>

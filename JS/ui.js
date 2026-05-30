@@ -9,6 +9,10 @@ import {
     loader
 } from "./dom.js"
 
+import {
+  favsbtn
+} from "./storage.js"
+
 import { weatherIcons, background } from "./dom.js";
 
 export function showWelcomeState() {
@@ -41,17 +45,6 @@ export function showWelcomeState() {
 
     });
 }
-//   cityElement.innerHTML = `<div class="welcome-icon">🌤️</div>`;
-//   tempElement.innerHTML = `<p class="welcome-title">What's the weather like?</p>`;
-//   document.querySelector(".condition").textContent =
-//     "Search a city to see the forecast";
-//   hourlyContainer.innerHTML = `
-//     <div class="quick-city" onclick="quickSearch('London')">🌧️<span>London</span></div>
-//     <div class="quick-city" onclick="quickSearch('Dubai')">☀️<span>Dubai</span></div>
-//     <div class="quick-city" onclick="quickSearch('Toronto')">❄️<span>Toronto</span></div>
-//     <div class="quick-city" onclick="quickSearch('Tokyo')">🌸<span>Tokyo</span></div>
-//   `;
-
 
 export function showSuggestions(cities, fetchWeather) {
   suggestions.innerHTML = "";
@@ -172,6 +165,7 @@ export function showLoader() {
 export function hideLoader() {
   loader.classList.add("hidden");
 }
+
 
 
 

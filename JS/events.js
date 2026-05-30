@@ -1,12 +1,15 @@
 import {
     inputSearch,
     suggestions,
-    search
+    search,
+    favbtn,
+    favourites,
+    cityElement
 } from "./dom.js";
 
 import { fetchWeather, fetchCitySuggestions } from "./api.js";
 import { showWelcomeState, showLoader } from "./ui.js";
-import { showRecentSearches } from "./storage.js";
+import { favsbtn, showfavourites, showRecentSearches } from "./storage.js";
 
 
 export function eventListener() {
@@ -129,5 +132,18 @@ search.addEventListener("click", () => {
   fetchWeather(city);
   suggestions.innerHTML = "";
 });
+
+
+
+favbtn.addEventListener('click', () => {
+  const city = cityElement.textContent.trim();
+  if (!city) return;
+  favsbtn(city);
+  favbtn.classList.add('addyellow')
+})
+
+favourites.addEventListener('click', () => {
+  showfavourites();
+})
 
 }

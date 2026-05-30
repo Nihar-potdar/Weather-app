@@ -17,7 +17,7 @@
 
 .background {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
   width: 100vw;
@@ -207,7 +207,6 @@
   -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
   mask-image: linear-gradient(to right, black 85%, transparent 100%);
   margin-bottom: 8px;
-  
 }
 
 .hour-card {
@@ -292,7 +291,6 @@
   }
 }
 
-
 .welcome-icon {
   font-size: 3rem;
   text-align: center;
@@ -310,8 +308,8 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 14px;
   padding: 14px 20px;
   cursor: pointer;
@@ -327,12 +325,11 @@
 }
 
 .quick-city:hover {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* ── Mobile (under 480px) ── */
 @media (max-width: 480px) {
-
   /* Card takes full width on small screens */
   .main-content {
     width: 95%;
@@ -410,7 +407,6 @@
 
 /* ── Tablet (480px to 768px) ── */
 @media (min-width: 480px) and (max-width: 768px) {
-
   .main-content {
     width: 92%;
     padding: 30px 24px;
@@ -457,6 +453,7 @@
   margin-top: 100px;
   margin-left: 300px;
   margin-right: 300px;
+  overflow: hidden;
 }
 
 .dayforecast > .daycard {
@@ -472,7 +469,132 @@
   font-weight: 700;
 }
 
-.dayforecast > .daycard > h3,h1,p,span {
+.dayforecast > .daycard > h3,
+h1,
+p,
+span {
   display: flex;
   justify-content: center;
+}
+
+.fav-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  width: 20px;
+  height: 20px;
+  padding: 30px;
+  margin-bottom: 10px;
+  font-size: 2rem;
+  transition: 0.2s ease all;
+}
+
+.fav-btn:hover {
+  scale: 1.2;
+}
+
+.addyellow {
+  color: yellow;
+}
+
+.header {
+  display: flex;
+  justify-content: end;
+  width: 100vw;
+  margin-bottom: 150px;
+}
+
+.favourites > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1rem 2rem;
+  margin: 20px;
+  border-radius: 20px;
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  transition: 0.2s ease all;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.favourites > button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: darkgoldenrod;
+  transition: 0.5s;
+  z-index: -1;
+}
+
+.favourites > button:hover::before {
+  width: 100%;
+}
+
+.favourites > i {
+  font-size: 2rem;
+}
+
+.favourites > button:hover {
+  scale: 1.02;
+}
+
+.favourites {
+  position: relative;
+  margin: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+}
+
+
+.favouritesContainer {
+  width: auto;
+  min-width: 250px;
+  height: auto;
+  margin: 10px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s all ease;
+  display: none;
+  overflow: hidden;
+}
+.favouritesContainer:hover {
+  scale: 1.02;
+  background-color: whitesmoke;
+  color: black;
+}
+
+.favContainerDisplay {
+  display: inline;
 }
