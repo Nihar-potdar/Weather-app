@@ -1,49 +1,39 @@
 import { fetchWeather } from "./api.js";
 import {
-    hourlyContainer,
-    cityElement,
-    inputSearch,
-    suggestions,
-    tempElement,
-    errorElement,
-    loader
-} from "./dom.js"
+  hourlyContainer,
+  cityElement,
+  inputSearch,
+  suggestions,
+  tempElement,
+  errorElement,
+  loader,
+  FAV_KEY,
+} from "./dom.js";
 
-import {
-  favsbtn
-} from "./storage.js"
+import { favsbtn, showfavourites } from "./storage.js";
 
 import { weatherIcons, background } from "./dom.js";
 
 export function showWelcomeState() {
+  const cities = ["London", "Dubai", "Torronto", "Tokyo"];
 
+  hourlyContainer.innerHTML = "";
 
-    const cities = [
-        "London",
-        "Dubai",
-        "Torronto",
-        "Tokyo"
-    ]
+  cities.forEach((city) => {
+    const div = document.createElement("div");
 
-    hourlyContainer.innerHTML = "";
-
-    cities.forEach(city => {
-
-    const div = document.createElement('div');
-    
-    div.classList.add('quick-city');
+    div.classList.add("quick-city");
 
     div.innerHTML = `
         <span>${city}</span>
-    `
+    `;
 
-    div.addEventListener('click', () => {
-        quickSearch(city);
+    div.addEventListener("click", () => {
+      quickSearch(city);
     });
 
     hourlyContainer.appendChild(div);
-
-    });
+  });
 }
 
 export function showSuggestions(cities, fetchWeather) {
@@ -71,9 +61,6 @@ export function showSuggestions(cities, fetchWeather) {
     suggestions.appendChild(div);
   });
 }
-
-
-
 
 export function quickSearch(city, fetchWeather) {
   inputSearch.value = city;
@@ -106,7 +93,6 @@ export function renderHourlyForecast(hours) {
   });
 }
 
-
 export function renderDailyForecast(days) {
   const dailyforecast = document.querySelector(".dayforecast");
 
@@ -119,12 +105,14 @@ export function renderDailyForecast(days) {
 
     const icon = weatherIcons[day.icon] || "🌍";
 
-    const dayName = new Date(day.datetime)
-      .toLocaleDateString('en-US', {weekday: "short"});
+    const dayName = new Date(day.datetime).toLocaleDateString("en-US", {
+      weekday: "short",
+    });
 
-    const shortConditions = day.conditions.length > 12
-      ? day.conditions.slice(0,12) + `..`
-      : day.conditions;
+    const shortConditions =
+      day.conditions.length > 12
+        ? day.conditions.slice(0, 12) + `..`
+        : day.conditions;
 
     card.innerHTML = `
     <h3 class = "dayName">${dayName}</h3>
@@ -157,7 +145,6 @@ export function updateBackground(condition) {
   }
 }
 
-
 export function showLoader() {
   loader.classList.remove("hidden");
 }
@@ -169,3 +156,37 @@ export function hideLoader() {
 
 
 
+export function showErrorMessage(message) {
+  const toast = document.createElement("div");
+  toast.classList.add("error-toast");
+  toast.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${message}`;
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.remove(), 3000);
+}
+
+let favouritesOpen = false;
+
+export function toggleFavourites() {
+    const container = document.querySelector('.favourites');
+
+    if (favouritesOpen) {
+        container.innerHTML = `
+            <button id="favsBtn">
+                <i class="fa-solid fa-star"></i>
+                Favourites
+            </button>
+        `;
+
+        container
+          .querySelector('#favsBtn')
+          .addEventListener('click', toggleFavourites());
+
+          favouritesOpen = false;
+    } else {
+        showfavourites();
+        favouritesOpen = true;
+    }
+    favouritesOpen = !favouritesOpen;
+    console.log("toggle fired");
+}

@@ -1,67 +1,135 @@
 @import url("https://fonts.googleapis.com/css2?family=Intel+One+Mono:ital,wght@0,300..700;1,300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sora:wght@100..800&display=swap");
 
+/* ─────────────────────────────────────────
+   DESIGN TOKENS
+   Single source of truth — change here,
+   updates everywhere.
+───────────────────────────────────────── */
+:root {
+  /* Glass effect */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-bg-strong: rgba(255, 255, 255, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-border-strong: rgba(255, 255, 255, 0.4);
+  --glass-blur: blur(20px);
+  --glass-blur-light: blur(10px);
+
+  /* Typography */
+  --font-main: "Inter", sans-serif;
+  --font-mono: "Intel One Mono", monospace;
+
+  /* Spacing scale */
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 20px;
+  --space-lg: 30px;
+  --space-xl: 40px;
+
+  /* Radius scale */
+  --radius-sm: 10px;
+  --radius-md: 15px;
+  --radius-lg: 20px;
+  --radius-xl: 30px;
+  --radius-full: 50px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Colours */
+  --color-white: white;
+  --color-accent: goldenrod;
+  --color-black: black;
+  --color-text-dim: rgba(255, 255, 255, 0.6);
+  --color-teal: rgba(0, 168, 168, 0.75);
+  --color-burnt-orange: rgba(200, 80, 30, 0.85);
+}
+
+/* ─────────────────────────────────────────
+   RESET
+───────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+/* ─────────────────────────────────────────
+   HIDE EMPTY ELEMENTS
+───────────────────────────────────────── */
 .condition:empty,
 .recent-searches:empty,
 .error-message:empty,
 .city:empty,
-.temp:empty {
+.temp:empty,
+.suggestions:empty {
   display: none;
 }
 
-* {
-  margin: 0;
-  border: 0;
-  box-sizing: border-box;
-  padding: 0;
-}
-
+/* ─────────────────────────────────────────
+   LAYOUT
+───────────────────────────────────────── */
 .background {
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background-image: url(daniel-ramirez-q4TfWtnz_xw-unsplash.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transition: 0.5s ease;
+  transition: background-image var(--transition-slow);
 }
 
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+}
+
+/* ─────────────────────────────────────────
+   MAIN WEATHER CARD
+───────────────────────────────────────── */
 .main-content {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: auto;
   flex-direction: column;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-main);
   font-size: 3rem;
   font-weight: 800;
-  color: white;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 30px;
-  padding: 40px;
+  color: var(--color-white);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
   width: 90%;
   max-width: 600px;
-  gap: 6px;
-  overflow: visible;
+  gap: var(--space-xs);
 }
 
 .city {
   font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 800;
   text-align: center;
+  max-width: 500px;
 }
 
 .temp {
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 800;
-  padding: 10px;
+  padding: var(--space-sm);
   max-width: 500px;
+  text-align: center;
 }
 
 .condition {
@@ -71,42 +139,37 @@
   text-align: center;
 }
 
-.searchbtn > button {
-  font-family: "Inter", sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  padding: 10px 20px;
-  display: flex;
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-  background: white;
-  cursor: pointer;
-  border: none;
-  transition: background 0.2s ease;
+.error-message {
+  font-family: var(--font-main);
+  font-size: clamp(1rem, 4vw, 2.5rem);
+  padding: var(--space-md);
+  max-width: 500px;
+  text-align: center;
 }
 
+/* ─────────────────────────────────────────
+   SEARCH
+───────────────────────────────────────── */
 .search {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border-radius: 50px;
-  padding: 6px 6px 6px 6px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur-light);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--glass-border-strong);
   width: 100%;
-  margin-top: 5px;
-  padding: 15px;
   max-width: 500px;
+  margin-top: var(--space-sm);
+  padding: 15px;
   position: relative;
 }
 
 .search > input {
   background: transparent;
   border: none;
-  color: white;
-  font-size: 1rem;
-  font-family: "Inter", sans-serif;
+  color: var(--color-white);
+  font-size: 16px; /* min 16px prevents iOS zoom */
+  font-family: var(--font-main);
   font-weight: 600;
   flex: 1;
   outline: none;
@@ -114,49 +177,49 @@
 }
 
 .search > input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-dim);
 }
 
-.error-message {
-  font-family: "Inter", sans-serif;
-  font-size: 2.5rem;
-  padding: 20px;
-  max-width: 500px;
+.searchbtn > button {
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 10px var(--space-md);
+  display: flex;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-white);
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  background: var(--color-white);
+  cursor: pointer;
+  transition: background var(--transition-fast);
 }
 
-.city {
-  max-width: 500px;
+.searchbtn > button:hover {
+  background: transparent;
+  color: var(--color-white);
+  border: 2px solid var(--color-white);
 }
 
+/* ─────────────────────────────────────────
+   SUGGESTIONS DROPDOWN
+───────────────────────────────────────── */
 .suggestions {
   width: calc(100% - 60px);
-  margin: 0 30px;
+  margin: 0 var(--space-lg);
   padding: 5px 0;
-  max-width: 100%;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border-strong);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   font-size: 1.2rem;
   font-weight: 400;
-  animation: dropdown 0.2s ease;
   color: #111;
-}
-
-@keyframes dropdown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  animation: dropdown var(--transition-fast);
 }
 
 .suggestion-item {
@@ -167,10 +230,19 @@
   color: black;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 8px 12px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .suggestion-item:last-child {
   border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+  background: rgba(8, 7, 7, 0.25);
+  cursor: pointer;
 }
 
 .suggestion-loading {
@@ -180,27 +252,16 @@
   font-size: 0.85rem;
 }
 
-.suggestion-item:hover {
-  background: lightgray;
-}
-
-.suggestions:empty {
-  display: none;
-}
-
-.suggestion-item.active {
-  background-color: rgba(8, 7, 7, 0.25);
-  cursor: pointer;
-}
-
+/* ─────────────────────────────────────────
+   HOURLY FORECAST STRIP
+───────────────────────────────────────── */
 .hourlytemp {
   display: flex;
   gap: 15px;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   width: 90%;
-  padding: 10px 15px 15px;
-  justify-content: flex-start;
-  font-size: 1rem;
+  padding: var(--space-sm) 15px 15px;
   scroll-behavior: smooth;
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
@@ -215,28 +276,36 @@
   min-width: 120px;
   background: rgba(255, 255, 255, 0.15);
   padding: 15px;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
+  border-radius: var(--radius-md);
+  backdrop-filter: var(--glass-blur-light);
   text-align: center;
   font-size: 1rem;
-  transition: all 0.1s ease-in-out;
+  color: var(--color-white);
   overflow: visible;
+  transition: transform var(--transition-fast);
+  animation: fadeIn var(--transition-slow);
 }
 
 .hour-card:hover {
   transform: translateY(-8px);
 }
 
+.hour-card > h1 {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-sm);
+  opacity: 0.8;
+}
+
 .hour-card .time {
   font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: var(--space-sm);
 }
 
 .hour-card .temperature {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: var(--space-sm);
 }
 
 .hour-card .condition {
@@ -245,52 +314,44 @@
   opacity: 0.8;
 }
 
-.hour-card > h1 {
+/* ─────────────────────────────────────────
+   DAY FORECAST
+───────────────────────────────────────── */
+.dayforecast {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  width: 90%;
+  max-width: 1200px;
+  margin-top: var(--space-xl);
+  overflow: hidden;
+}
+
+.dayforecast > .daycard {
+  background: rgba(255, 255, 255, 0.15);
+  flex: 1 1 300px; /* grows/shrinks, min 300px */
+  max-width: 400px;
+  padding: 35px;
+  border-radius: var(--radius-md);
+  backdrop-filter: var(--glass-blur-light);
+  color: var(--color-white);
+  font-family: var(--font-main);
   font-size: 2.5rem;
-  margin-bottom: 10px;
-  opacity: 0.8;
+  font-weight: 700;
 }
 
-.hour-card {
-  animation: fadeIn 0.5s ease;
+.daycard h3,
+.daycard h1,
+.daycard p,
+.daycard span {
+  display: flex;
+  justify-content: center;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.loading {
-  width: 60px;
-  height: 60px;
-  border: 6px solid white;
-  border-top: 6px solid transparent;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 20px;
-}
-
-.hidden {
-  display: none;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+/* ─────────────────────────────────────────
+   WELCOME STATE
+───────────────────────────────────────── */
 .welcome-icon {
   font-size: 3rem;
   text-align: center;
@@ -307,14 +368,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.1);
+  gap: var(--space-xs);
+  background: var(--glass-bg);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 14px;
-  padding: 14px 20px;
+  padding: 14px var(--space-md);
   cursor: pointer;
   font-size: 1.5rem;
-  transition: background 0.2s ease;
+  min-height: 44px;
+  transition: background var(--transition-fast);
   min-width: 90px;
 }
 
@@ -325,38 +387,301 @@
 }
 
 .quick-city:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--glass-bg-strong);
 }
 
-/* ── Mobile (under 480px) ── */
-@media (max-width: 480px) {
-  /* Card takes full width on small screens */
+/* ─────────────────────────────────────────
+   FAVOURITES
+───────────────────────────────────────── */
+.favourites {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin: var(--space-md);
+  position: relative;
+  scroll-padding-left: var(--space-md);
+}
+
+.favourites > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-md);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  padding: 1rem 2rem;
+  margin: var(--space-md);
+  border-radius: var(--radius-lg);
+  color: var(--color-white);
+  font-family: var(--font-main);
+  font-size: 2.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: scale var(--transition-fast);
+  flex-shrink: 0;
+}
+
+/* Goldenrod fill-in hover effect */
+.favourites > button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 0;
+  background: var(--color-accent);
+  transition: width var(--transition-slow);
+  z-index: -1;
+}
+
+.favourites > button:hover::before {
+  width: 100%;
+}
+
+.favourites > button:hover {
+  scale: 1.02;
+}
+
+.favouritesContainer {
+  min-width: unset;
+  height: 100px;
+  display: none;
+  gap: var(--space-md);
+  width: auto;
+  max-width: 300px;
+  flex-shrink: 0;
+  margin: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 2rem;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: scale var(--transition-base);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.favouritesContainer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 0;
+  background: var(--color-teal);
+  transition: width var(--transition-slow);
+  z-index: -1;
+}
+
+.favouritesContainer:hover::before {
+  width: 100%;
+}
+
+.favouritesContainer:hover {
+  scale: 1.02;
+}
+
+
+.favContainerDisplay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.removeFavsBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  width: 60px;
+  height: 60px;
+  min-width: 50px;
+  border-radius: var(--radius-sm);
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--color-white);
+  transition: var(--transition-fast);
+}
+
+.removeFavsBtn:hover {
+  scale: 1.1;
+  background: var(--color-burnt-orange);
+}
+
+/* ─────────────────────────────────────────
+   FAV STAR BUTTON
+───────────────────────────────────────── */
+.fav-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  width: 20px;
+  height: 20px;
+  padding: var(--space-lg);
+  margin-bottom: var(--space-sm);
+  font-size: 2rem;
+  transition: scale var(--transition-fast);
+}
+
+.fav-btn:hover {
+  scale: 1.2;
+}
+
+.addyellow {
+  color: yellow;
+}
+
+/* error toast button  */
+
+.error-toast {
+  position: fixed;
+  bottom: var(--space-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--color-burnt-orange);
+  backdrop-filter: var(--glass-blur);
+  color: var(--color-white);
+  font-family: var(--font-main);
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 14px var(--space-md);
+  border-radius: var(--radius-md);
+  animation: fadeIn var(--transition-fast);
+  z-index: 999;
+}
+
+.closeFavsBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-sm);
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--color-white);
+  transition: scale var(--transition-fast), background var(--transition-fast);
+}
+
+.closeFavsBtn:hover {
+  scale: 1.1;
+  background: var(--color-burnt-orange);
+}
+
+/* ─────────────────────────────────────────
+   UTILITIES
+───────────────────────────────────────── */
+.hidden {
+  display: none !important;
+}
+
+/* ─────────────────────────────────────────
+   LOADING SPINNER
+───────────────────────────────────────── */
+.loading {
+  width: 60px;
+  height: 60px;
+  border: 6px solid var(--color-white);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: var(--space-md);
+}
+
+/* ─────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────── */
+@keyframes dropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE — TABLET (480px–768px)
+───────────────────────────────────────── */
+@media (min-width: 480px) and (max-width: 768px) {
   .main-content {
-    width: 95%;
+    width: 92%;
+    padding: var(--space-lg) 24px;
+  }
+
+  .hour-card {
+    min-width: 95px;
+  }
+
+  .hour-card .temperature {
+    font-size: 1.2rem;
+  }
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE — MOBILE (< 480px)
+───────────────────────────────────────── */
+@media (max-width: 480px) {
+  .main-content {
+    width: 90%;
     padding: 24px 16px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     gap: 8px;
   }
 
-  /* Smaller city name */
   .city {
     font-size: clamp(1.4rem, 6vw, 2rem);
-    text-align: center;
   }
 
-  /* Smaller temperature */
   .temp {
     font-size: clamp(2.5rem, 12vw, 3.5rem);
-    text-align: center;
   }
 
-  /* Search bar stacks on very small screens */
   .search {
     padding: 14px;
-  }
-
-  .search > input {
-    font-size: 0.9rem;
   }
 
   .searchbtn > button {
@@ -364,7 +689,6 @@
     font-size: 0.85rem;
   }
 
-  /* Hourly cards smaller */
   .hour-card {
     min-width: 85px;
     padding: 10px 8px;
@@ -386,215 +710,112 @@
     font-size: 0.7rem;
   }
 
-  /* Error message smaller */
-  .error-message {
-    font-size: 1rem;
-    text-align: center;
-  }
-
-  /* Quick city chips wrap */
-  .hourlytemp {
-    justify-content: flex-start;
-    gap: 10px;
-  }
-
-  /* Recent searches full width */
-  .recent-item {
-    font-size: 0.85rem;
-    padding: 8px 12px;
-  }
-}
-
-/* ── Tablet (480px to 768px) ── */
-@media (min-width: 480px) and (max-width: 768px) {
-  .main-content {
-    width: 92%;
-    padding: 30px 24px;
-  }
-
-  .hour-card {
-    min-width: 95px;
-  }
-
-  .hour-card .temperature {
-    font-size: 1.2rem;
-  }
-}
-
-.suggestion-item,
-.recent-item,
-.quick-city,
-.searchbtn > button {
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-}
-
-.search > input {
-  font-size: 16px; /* never go below 16px on mobile */
-}
-
-.hourlytemp {
-  -webkit-overflow-scrolling: touch;
-}
-
-@media (max-width: 480px) {
   .hourlytemp {
     -webkit-mask-image: none;
     mask-image: none;
   }
-}
 
-.dayforecast {
-  display: flex;
-  align-items: end;
-  width: 100vw;
-  justify-content: center;
-  margin-top: 100px;
-  margin-left: 300px;
-  margin-right: 300px;
-  overflow: hidden;
-}
+  .recent-item {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+  }
 
-.dayforecast > .daycard {
-  background: rgba(255, 255, 255, 0.15);
-  min-width: 350px;
-  padding: 35px;
-  margin: 5px;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-  color: white;
-  font-family: "Inter", sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-}
+  .favouritesContainer {
+    min-width: unset;
+    width: 100%;
+    font-size: 1.4rem;
+  }
 
-.dayforecast > .daycard > h3,
-h1,
-p,
-span {
-  display: flex;
-  justify-content: center;
-}
+  .removeFavsBtn {
+    width: 44px;
+    height: 44px;
+    font-size: 1.4rem;
+  }
 
-.fav-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  width: 20px;
-  height: 20px;
-  padding: 30px;
-  margin-bottom: 10px;
-  font-size: 2rem;
-  transition: 0.2s ease all;
-}
+  /* ── Tablet (480px–768px) ── */
+  @media (min-width: 480px) and (max-width: 768px) {
+    .dayforecast > .daycard {
+      flex: 1 1 200px;
+      max-width: 280px;
+      padding: 20px;
+      font-size: 1.8rem;
+    }
+  }
 
-.fav-btn:hover {
-  scale: 1.2;
-}
+  /* ── Mobile (< 480px) ── */
+  @media (max-width: 480px) {
+    .dayforecast {
+      width: 100%;
+      padding: 0 var(--space-md);
+      margin-top: var(--space-lg);
+    }
 
-.addyellow {
-  color: yellow;
-}
+    .dayforecast > .daycard {
+      flex: 1 1 140px;
+      max-width: 100%;
+      padding: 14px;
+      font-size: 1.2rem;
+    }
+  }
 
-.header {
-  display: flex;
-  justify-content: end;
-  width: 100vw;
-  margin-bottom: 150px;
-}
+  /* ── Tablet (480px–768px) ── */
+  @media (min-width: 480px) and (max-width: 768px) {
+    .favourites > button {
+      font-size: 1.6rem;
+      padding: 0.6rem 1.2rem;
+      margin: var(--space-sm);
+      border-radius: var(--radius-md);
+    }
 
-.favourites > button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 1rem 2rem;
-  margin: 20px;
-  border-radius: 20px;
-  color: white;
-  font-family: "Inter", sans-serif;
-  font-size: 2.5rem;
-  font-weight: 600;
-  transition: 0.2s ease all;
-  text-transform: uppercase;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-}
+    .favouritesContainer {
+      min-width: 50px;
+      font-size: 1.4rem;
+      padding: 14px;
+    }
 
-.favourites > button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 100%;
-  background: darkgoldenrod;
-  transition: 0.5s;
-  z-index: -1;
-}
+    .removeFavsBtn {
+      width: 50px;
+      height: 50px;
+      font-size: 1.6rem;
+    }
+  }
 
-.favourites > button:hover::before {
-  width: 100%;
-}
+  /* ── Mobile (< 480px) ── */
+  @media (max-width: 480px) {
+    .favourites > button {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      margin: var(--space-xs);
+      border-radius: var(--radius-sm);
+    }
 
-.favourites > i {
-  font-size: 2rem;
-}
+    .favourites {
+      padding: var(--space-xs);
+      margin: var(--space-xs);
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+      overflow-x: auto;
+      scroll-snap-align: start;
+      -webkit-overflow-scrolling: touch;
+    }
 
-.favourites > button:hover {
-  scale: 1.02;
-}
+    .favouritesContainer {
+      min-width: fit-content;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      width: auto;
+      height: 50px;
+      font-size: 1rem;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      gap: var(--space-sm);
+    }
 
-.favourites {
-  position: relative;
-  margin: 20px;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 20px;
-}
-
-
-.favouritesContainer {
-  width: auto;
-  min-width: 250px;
-  height: auto;
-  margin: 10px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 20px;
-  text-align: center;
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-  font-size: 2rem;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s all ease;
-  display: none;
-  overflow: hidden;
-}
-.favouritesContainer:hover {
-  scale: 1.02;
-  background-color: whitesmoke;
-  color: black;
-}
-
-.favContainerDisplay {
-  display: inline;
+    .removeFavsBtn {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      font-size: 1rem;
+    }
+  }
 }

@@ -9,7 +9,7 @@ import {
 
 import { fetchWeather, fetchCitySuggestions } from "./api.js";
 import { showWelcomeState, showLoader } from "./ui.js";
-import { favsbtn, showfavourites, showRecentSearches } from "./storage.js";
+import { favsbtn, removeFavourites, showfavourites, showRecentSearches } from "./storage.js";
 
 
 export function eventListener() {
@@ -140,10 +140,11 @@ favbtn.addEventListener('click', () => {
   if (!city) return;
   favsbtn(city);
   favbtn.classList.add('addyellow')
-})
-
-favourites.addEventListener('click', () => {
   showfavourites();
 })
+
+document.getElementById('favsBtn').addEventListener('click', () => {
+  showfavourites();
+});
 
 }

@@ -5,6 +5,8 @@ import {
 
 import { fetchWeather } from "./api.js";
 
+import { toggleFavourites, showErrorMessage } from "./ui.js";
+
 
 export function recents(city) {
   let recentSearches = JSON.parse(localStorage.getItem("recentSearches")) || [];
@@ -48,6 +50,7 @@ export function favsbtn(city) {
 
     favourites = favourites.filter((item) => item != city);
     favourites.unshift(city);
+    favourites = favourites.slice(0, 5);
 
     localStorage.setItem(FAV_KEY, JSON.stringify(favourites));
 
@@ -57,6 +60,8 @@ export function favsbtn(city) {
 
 
 export function showfavourites() {
+
+  try {
     const favourites = 
         JSON.parse(localStorage.getItem(FAV_KEY)) || [];
 
@@ -66,19 +71,63 @@ export function showfavourites() {
 
         container.innerHTML = "";
 
+        if (favourites.length === 0) {
+          container.innerHTML = `<button id="favsBtn">
+            <i class="fa-solid fa-star"></i> Favourites
+        </button>`
+        showErrorMessage('No favourites added yet!');
+        return;
+        }
+    
+        const closebtn = document.createElement('div');
+        closebtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`
+        closebtn.classList.add('closeFavsBtn');
+        closebtn.addEventListener('click', (e) =>{ 
+          e.stopPropagation();
+          toggleFavourites();
+        });
+        container.appendChild(closebtn);
+
         favourites.forEach((city) => {
-
             const div = document.createElement('div');
-
             div.classList.add("favouritesContainer");
-            div.classList.add("favContainerDisplay")
+            div.classList.add("favContainerDisplay");
+            div.innerHTML = `<span>${city.toUpperCase()}</span>
+            <button class="removeFavsBtn">
+            <i class="fa-solid fa-x">
+            </i>
+            </button> `
 
-            div.textContent = city.toUpperCase();
+
+            div.querySelector('.removeFavsBtn').addEventListener('click', (e) => {
+              e.stopPropagation();
+              removeFavourites(city);
+            })
 
             div.addEventListener("click", () => {
                 fetchWeather(city);
               } )
+
+         
+            
               container.appendChild(div)
         }
       )
+         } catch (error) {
+      console.error('favourites error:', error.message);
+    }
+
+}
+
+export function removeFavourites(city) {
+  let favourites = JSON.parse(localStorage.getItem(FAV_KEY)) || [];
+  favourites = favourites.filter((item) => item !== city);
+  localStorage.setItem(FAV_KEY, JSON.stringify(favourites));
+  showfavourites();
+  
+}
+
+export function removeFavAll() {
+      localStorage.clear(FAV_KEY);
+      showfavourites();
 }
