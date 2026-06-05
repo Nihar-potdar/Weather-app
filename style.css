@@ -163,10 +163,14 @@
   padding: 15px;
   position: relative;
   flex-wrap: nowrap;
-  min-width: 0;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .search > input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: transparent;
   border: none;
   color: var(--color-white);
@@ -175,7 +179,7 @@
   font-weight: 600;
   flex: 1;
   outline: none;
-  padding: 2px 0;
+  padding: 2px 2px;
 }
 
 .search > input::placeholder {
@@ -184,6 +188,9 @@
 
 .searchbtn {
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  min-width: fit-content;
 }
 
 .searchbtn > button {
@@ -198,12 +205,12 @@
   justify-content: center;
   align-items: center;
   min-height: 44px;
-  min-width: 0;
   background: var(--color-white);
   cursor: pointer;
   transition: background var(--transition-fast);
   flex-shrink: 0;
   white-space: nowrap;
+  
 }
 
 .searchbtn > button:hover {
@@ -694,9 +701,12 @@
     padding: 14px;
   }
 
+  .searchbtn {
+  }
+
   .searchbtn > button {
-    padding: 8px 14px;
-    font-size: 0.85rem;
+    padding: 5px 8px;
+    font-size: 0.75rem;
   }
 
   .hour-card {
