@@ -8,7 +8,7 @@ import {
 } from "./dom.js";
 
 import { fetchWeather, fetchCitySuggestions } from "./api.js";
-import { showWelcomeState, showLoader } from "./ui.js";
+import { showWelcomeState, showLoader, hideLoader } from "./ui.js";
 import { favsbtn, removeFavourites, showfavourites, showRecentSearches } from "./storage.js";
 
 
@@ -28,8 +28,18 @@ inputSearch.addEventListener("focus", () => {
 });
 
 
-window.addEventListener("load", () => {
-  if (!navigator.geolocation) return;
+window.addEventListener("load", () => { 
+  const cachedCity = sessionStorage.getItem('userCity');
+  if(cachedCity) {
+    fetchWeather(cachedCity);
+    return;
+  }
+
+  if(!navigation.geolocation) {
+    showWelcomeState();
+    return;
+  }
+
 
   showLoader();
 
@@ -49,6 +59,7 @@ window.addEventListener("load", () => {
 
       if (city) {
         inputSearch.value = city;
+        sessionStorage.setItem('userCity', city) // cache it
         fetchWeather(city);
       } else {
         fetchWeather(`${latitude},${longitude}`);
@@ -57,10 +68,11 @@ window.addEventListener("load", () => {
     (error) => {
       // USer denid of location unavailable - just show welcome state silently
       console.log("location not available", error.message);
+      hideLoader();
       showWelcomeState();
     },
     {
-      timeout: 10000,
+      timeout: 5000,
       maximumAge: 60000,
     },
   );

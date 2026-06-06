@@ -11,7 +11,7 @@
   --glass-bg-strong: rgba(255, 255, 255, 0.2);
   --glass-border: rgba(255, 255, 255, 0.2);
   --glass-border-strong: rgba(255, 255, 255, 0.4);
-  --glass-blur: blur(20px);
+  --glass-blur: blur(10px);
   --glass-blur-light: blur(10px);
 
   /* Typography */
@@ -699,9 +699,6 @@
 
   .search {
     padding: 14px;
-  }
-
-  .searchbtn {
   }
 
   .searchbtn > button {

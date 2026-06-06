@@ -128,6 +128,6 @@ export function removeFavourites(city) {
 }
 
 export function removeFavAll() {
-      localStorage.clear(FAV_KEY);
+      localStorage.removeItem(FAV_KEY);
       showfavourites();
 }
