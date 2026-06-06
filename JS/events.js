@@ -72,7 +72,7 @@ window.addEventListener("load", () => {
       showWelcomeState();
     },
     {
-      timeout: 5000,
+      timeout: 10000,
       maximumAge: 60000,
     },
   );
