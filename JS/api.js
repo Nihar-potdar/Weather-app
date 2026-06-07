@@ -13,10 +13,10 @@ import {
   hideLoader,
   renderHourlyForecast,
   renderDailyForecast,
-  updateBackground,
   showSuggestions,
 } from "./ui.js";
 
+// updateBackground,
 import { recents, showRecentSearches } from "./storage.js";
 
 const weatherCache = new Map();
@@ -84,6 +84,6 @@ export function renderWeather(data) {
   suggestions.innerHTML = "";
   tempElement.textContent = `${data.days[0].temp}°C`;
   renderHourlyForecast(data.days[0].hours);
-  updateBackground(data.days[0].conditions);
+  // updateBackground(data.days[0].conditions);
   errorElement.innerHTML = "";
 }

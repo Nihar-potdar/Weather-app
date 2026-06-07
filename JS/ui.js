@@ -166,25 +166,25 @@ export function renderDailyForecast(days) {
   dailyforecast.innerHTML = html;
 }
 
-export function updateBackground(condition) {
-  condition = condition.toLowerCase();
+// export function updateBackground(condition) {
+//   condition = condition.toLowerCase();
 
-  const backgrounds = {
-    rain: "rain.jpg",
-    clear: "clear.jpg",
-    cloud: "cloudy.jpg",
-    overcast: "cloudy.jpg",
-    snow: "snow.jpg",
-  };
+//   const backgrounds = {
+//     rain: "rain.jpg",
+//     clear: "clear.jpg",
+//     cloud: "cloudy.jpg",
+//     overcast: "cloudy.jpg",
+//     snow: "snow.jpg",
+//   };
 
-  for (let key in backgrounds) {
-    if (condition.includes(key)) {
-      background.style.backgroundImage = `url('${backgrounds[key]}')`;
+//   for (let key in backgrounds) {
+//     if (condition.includes(key)) {
+//       background.style.backgroundImage = `url('${backgrounds[key]}')`;
 
-      break;
-    }
-  }
-}
+//       break;
+//     }
+//   }
+// }
 
 export function showLoader() {
   loader.classList.remove("hidden");
