@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=air,clear_day,cloud,foggy,nightlight,partly_cloudy_day,partly_cloudy_night,rainy,weather_snowy" />
   </head>
   <body>
     <div class="background">
@@ -16,42 +17,52 @@
             <i class="fa-solid fa-star"></i>
             Favourites
           </button>
-
-          <div class="favouritesContainer"></div>
+          <div class="favourites-dropdown"></div>
+          <!-- <div class="favouritesContainer"></div> -->
         </div>
       </div>
-
-      <div class="main-content" id="weather">
-        <div class="loading hidden"></div>
-
-        <!-- 1. City at the top -->
-        <div class="fav-btn"><i class="fa-solid fa-star"></i></div>
-        <div class="city"></div>
-        <div class="temp"></div>
-        <div class="condition"></div>
-
-        <!-- 2. Hourly forecast -->
-        <div class="hourlytemp"></div>
-
-        <!-- 3. Error inside the card -->
-        <div class="error-message"></div>
-
-        <!-- 4. Search at the bottom, button INSIDE search -->
-        <div class="search">
-          <input type="text" placeholder="Search city..." id="search" />
-          <div class="searchbtn"><button>Search</button></div>
-        </div>
-
-        <!-- 5. Suggestions outside search, still inside card -->
-        <div class="suggestions"></div>
-
-        <div class="recent-searches"></div>
+      <div class="main-content-wrapper">
+          <div class="main-content" id="weather">
+              <div class="loading hidden"></div>
+              
+              <!-- 1. City at the top -->
+              
+              
+              <div class="favbtnwrapper">
+                  <div class="fav-btn"><i class="fa-solid fa-star"></i></div>
+                </div>
+                <div class="city"></div>
+                <div class="temp"></div>
+                <div class="condition"></div>
+                
+                <!-- 2. Hourly forecast -->
+                <div class="hourlytemp"></div>
+                
+                <!-- 3. Error inside the card -->
+                <div class="error-message"></div>
+                
+                <!-- 4. Search at the bottom, button INSIDE search -->
+                <div class="search">
+                    <input type="text" placeholder="Search city..." id="search" />
+                    <div class="searchbtn"><button>Search</button></div>
+                </div>
+                
+                <!-- 5. Suggestions outside search, still inside card -->
+                <div class="suggestions"></div>
+                
+                <div class="recent-searches"></div>
+            </div>
+            <div class="extrainfo">
+                <div class="extra_info_card"></div>
+                <div class="extra-info-card-uvindex"></div>    
+            </div>
       </div>
       <div class="dayforecast"></div>
     </div>
     <script></script>
     </script>
     <script type="module" src="./JS/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@iconify/iconify@3/dist/iconify.min.js"></script>
     <script src="https://kit.fontawesome.com/e00a049cef.js" crossorigin="anonymous"></script>
   </body>
 </html>

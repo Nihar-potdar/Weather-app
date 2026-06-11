@@ -101,7 +101,7 @@ export function renderHourlyForecast(hours) {
         : hour.conditions;
 
     return `<div class="hour-card"> 
-         <h1>${icon}</h1>
+        <div class="weather-icon">${icon}</div>
          <p class="time">${hour.datetime.slice(0, 5)}</p>
          <h3 class="temperature">${hour.temp}°C</h3>
          <p class="condition">${shortCondition}</p>
@@ -143,7 +143,7 @@ export function renderDailyForecast(days) {
       
       
     const dailyforecast = document.querySelector(".dayforecast");
-    const html = days.map(day => {
+    const html = days.slice(0, 7).map(day => {
     const icon = weatherIcons[day.icon] || "🌍";
     const dayName = new Date(day.datetime).toLocaleDateString("en-US", {
       weekday: "short",
@@ -156,9 +156,9 @@ export function renderDailyForecast(days) {
     return `
     <div class="daycard">
     <h3 class = "dayName">${dayName}</h3>
-    <h1>${icon}</h1>
     <p>${day.temp}°C</p>
-    <span>${shortConditions}</span> 
+    <div class="weather-icon">${icon}</div>
+    <span class="condition">${shortConditions}</span> 
     </div>
     `
   }).join('');
@@ -194,9 +194,6 @@ export function hideLoader() {
   loader.classList.add("hidden");
 }
 
-
-
-
 export function showErrorMessage(message) {
   const toast = document.createElement("div");
   toast.classList.add("error-toast");
@@ -209,23 +206,14 @@ export function showErrorMessage(message) {
 let favouritesOpen = false;
 
 export function toggleFavourites() {
-    const container = document.querySelector('.favourites');
+    const dropdown = document.querySelector('.favourites-dropdown');
+    if (!dropdown) return;
 
-    if (favouritesOpen) {
-        container.innerHTML = `
-            <button id="favsBtn">
-                <i class="fa-solid fa-star"></i>
-                Favourites
-            </button>
-        `;
+    dropdown.classList.toggle('active')
 
-        container
-          .querySelector('#favsBtn')
-          .addEventListener('click', toggleFavourites);       
+    if (dropdown.classList.contains('active')) {
+      showfavourites();
     } else {
-        showfavourites();
+      dropdown.innerHTML = '';
     }
-
-    favouritesOpen = !favouritesOpen;
-    console.log("toggle fired");
 }

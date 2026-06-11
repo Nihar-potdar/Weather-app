@@ -35,12 +35,6 @@ window.addEventListener("load", () => {
     return;
   }
 
-  if(!navigation.geolocation) {
-    showWelcomeState();
-    return;
-  }
-
-
   showLoader();
 
   navigator.geolocation.getCurrentPosition(
@@ -150,13 +144,23 @@ search.addEventListener("click", () => {
 favbtn.addEventListener('click', () => {
   const city = cityElement.textContent.trim();
   if (!city) return;
-  favsbtn(city);
-  favbtn.classList.add('addyellow')
-  showfavourites();
+
+  const isAlreadyFavorite = favbtn.classList.contains('addyellow')
+
+  if (isAlreadyFavorite) {
+    removeFavourites(city);
+    favbtn.classList.remove('addyellow')
+  } else {
+    favsbtn(city);
+    favbtn.classList.add('addyellow');
+    showfavourites();
+  }
+});
+
+window.addEventListener('load', () => {
+  const temp = document.querySelector('.temp')
+  temp.classList.add('tempshow')
 })
 
-document.getElementById('favsBtn').addEventListener('click', () => {
-  showfavourites();
-});
 
 }

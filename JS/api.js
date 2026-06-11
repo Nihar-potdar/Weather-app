@@ -6,6 +6,7 @@ import {
   tempElement,
   errorElement,
   weather,
+  uvindex
 } from "./dom.js";
 
 import {
@@ -31,7 +32,7 @@ export async function fetchWeather(city) {
   }
 
   errorElement.innerHTML = "";
-  const api_url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=FV99HJ4VMSC46BGXWCQ7WAN76&days=7&elements=datetime,temp,conditions,icon,hours`;
+  const api_url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=FV99HJ4VMSC46BGXWCQ7WAN76&days=7&elements=datetime,temp,conditions,icon,hours,humidity,uvindex`;
   try {
         showLoader();
         const response = await fetch(api_url);
@@ -40,6 +41,8 @@ export async function fetchWeather(city) {
           throw new Error("City not found");
         }
         const data = await response.json();
+        const day = data.days[0];
+
 
         recents(data.address);
         showRecentSearches();
@@ -82,6 +85,18 @@ export function renderWeather(data) {
   cityElement.textContent = data.address;
   inputSearch.value = "";
   suggestions.innerHTML = "";
+  uvindex.innerHTML = `
+  <div> 
+      <h2> UVINDEX </h2>
+       <span>${data.days[0].uvindex}%</span>
+       </div>
+  `
+  document.querySelector('.extra_info_card').innerHTML = 
+       `
+      <div> 
+      <h2> HUMIDITY </h2>
+       <span>${data.days[0].humidity}%</span>
+       </div>`
   tempElement.textContent = `${data.days[0].temp}°C`;
   renderHourlyForecast(data.days[0].hours);
   // updateBackground(data.days[0].conditions);

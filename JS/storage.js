@@ -58,44 +58,48 @@ export function favsbtn(city) {
     console.log(favourites)
 }
 
+export function initFavourites() {
+  const favouriteBtn = document.querySelector('#favsBtn');
+  if (favouriteBtn) {
+    favouriteBtn.addEventListener('click', () => {
+      toggleFavourites();
+    });
+  }
+}
+
 
 export function showfavourites() {
 
   try {
-    const favourites = 
-        JSON.parse(localStorage.getItem(FAV_KEY)) || [];
+    const favourites =  JSON.parse(localStorage.getItem(FAV_KEY)) || [];  
+    const dropdown = document.querySelector('.favourites-dropdown');
 
-    const container = document.querySelector('.favourites');
+        if (!dropdown) throw new Error('dropdown not found!');
 
-        if (!container) return;
-
-        container.innerHTML = "";
+        dropdown.innerHTML = "";
 
         if (favourites.length === 0) {
-          container.innerHTML = `<button id="favsBtn">
-            <i class="fa-solid fa-star"></i> Favourites
-        </button>`
-        showErrorMessage('No favourites added yet!');
-        return;
+          showErrorMessage('No favourites added yet!');
+          return;
         }
     
-        const closebtn = document.createElement('div');
-        closebtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`
-        closebtn.classList.add('closeFavsBtn');
-        closebtn.addEventListener('click', (e) =>{ 
-          e.stopPropagation();
-          toggleFavourites();
-        });
-        container.appendChild(closebtn);
+        // const closebtn = document.createElement('div');
+        // closebtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`
+        // closebtn.classList.add('closeFavsBtn');
+        // closebtn.addEventListener('click', (e) =>{ 
+        //   toggleFavourites();
+        //   e.stopPropagation();
+        // });
+        // container.appendChild(closebtn);
 
         favourites.forEach((city) => {
             const div = document.createElement('div');
-            div.classList.add("favouritesContainer");
-            div.classList.add("favContainerDisplay");
-            div.innerHTML = `<span>${city.toUpperCase()}</span>
-            <button class="removeFavsBtn">
-            <i class="fa-solid fa-x">
-            </i>
+            div.classList.add("favouritesContainer", "favContainerDisplay")
+
+            div.innerHTML = `
+            <span>${city.toUpperCase()}</span>
+            <button class="removeFavsBtn" aria-label="Remove ${city}">
+            <i class="fa-solid fa-x"></i>
             </button> `
 
 
@@ -104,15 +108,10 @@ export function showfavourites() {
               removeFavourites(city);
             })
 
-            div.addEventListener("click", () => {
-                fetchWeather(city);
-              } )
+            div.addEventListener("click", () => { fetchWeather(city); }) 
+              dropdown.appendChild(div)
+        })
 
-         
-            
-              container.appendChild(div)
-        }
-      )
          } catch (error) {
       console.error('favourites error:', error.message);
     }

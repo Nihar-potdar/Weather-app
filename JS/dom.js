@@ -10,15 +10,16 @@ export const suggestions = document.querySelector(".suggestions");
 export const weather = document.querySelector("#weather");
 export const favbtn = document.querySelector('.fav-btn')
 export const favourites = document.querySelector('.favourites')
+export const uvindex = document.querySelector('.extra-info-card-uvindex')
 export const FAV_KEY = 'favBtn'
 export const weatherIcons = {
-  "clear-day": "",
-  "clear-night": "🌙",
-  "rain": "🌧️",
-  "snow": "❄️",
-  "fog": "🌫️",
-  "wind": "💨",
-  "cloudy": "☁️",
-  "partly-cloudy-day": "⛅",
-  "partly-cloudy-night": "🌙",
-};
+  "clear-day": '<span class="material-symbols-outlined">clear_day</span>',
+  "clear-night": '<span class="material-symbols-outlined">nightlight</span>',
+  "rain": '<span class="material-symbols-outlined">rainy</span>',
+  "snow": '<span class="material-symbols-outlined">weather_snowy</span>',
+  "fog": '<span class="material-symbols-outlined">foggy</span>',
+  "wind": '<span class="material-symbols-outlined">air</span>',
+  "cloudy": '<span class="material-symbols-outlined">cloud</span>',
+  "partly-cloudy-day": '<span class="material-symbols-outlined">partly_cloudy_day</span>',
+  "partly-cloudy-night": '<span class="material-symbols-outlined">partly_cloudy_night</span>',
+};;
