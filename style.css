@@ -101,7 +101,7 @@
   grid-template-columns: 60% 40%;
   padding: var(--space-lg);
   width: 100vw;
-  height: 80vh;
+  min-height: 80vh;
   padding-bottom: 0;
   justify-content: start;
   align-tracks: start;
@@ -428,7 +428,7 @@
 ───────────────────────────────────────── */
 .dayforecast {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: var(--space-md);
   width: 97vw;
   margin: 10px;
@@ -871,102 +871,150 @@
 /* ─────────────────────────────────────────
    RESPONSIVE — MOBILE (< 480px)
 ───────────────────────────────────────── */
-@media (max-width: 480px) {
-  .main-content {
-    width: 90%;
-    padding: 24px 16px;
-    border-radius: var(--radius-lg);
-    gap: 8px;
-  }
+@media (max-width: 768px) {
 
-  .city {
-    font-size: clamp(1.4rem, 6vw, 2rem);
-  }
-  .temp {
-    font-size: clamp(2.5rem, 12vw, 3.5rem);
-  }
-
-  .search {
-    padding: 14px;
-  }
-
-  .searchbtn > button {
-    padding: 5px 8px;
-    font-size: 0.75rem;
-  }
-
-  .hour-card {
-    min-width: 85px;
-    padding: 10px 8px;
-  }
-
-  .hour-card > h1 {
-    font-size: 1.8rem;
-  }
-  .hour-card .temperature {
-    font-size: 1.1rem;
-  }
-  .hour-card .time {
-    font-size: 0.8rem;
-  }
-  .hour-card .condition {
-    font-size: 0.7rem;
-  }
-
-  .hourlytemp {
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-
-  .recent-item {
-    font-size: 0.85rem;
-    padding: 8px 12px;
-  }
-
-  .dayforecast {
+  .main-content-wrapper {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    padding: 0 var(--space-md);
-    margin-top: var(--space-lg);
+    height: auto;
+    padding: 15px;
+    gap: 15px;
   }
 
-  .dayforecast > .daycard {
-    flex: 1 1 140px;
-    max-width: 100%;
-    padding: 14px;
-    font-size: 1.2rem;
+  .header {
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
   }
 
   .favourites {
-    padding: var(--space-xs);
-    margin: var(--space-xs);
+    width: 100%;
+    margin: 0;
+  }
+
+  .main-content,
+  .extrainfo {
+    width: 100%;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .city {
+    font-size: 2rem;
+  }
+
+  .temp {
+    font-size: 3rem;
+  }
+
+  .search {
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+    padding: 12px;
+  }
+
+  .searchbtn > button {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+
+  /* HOURLY FORECAST */
+
+  .hourlytemp {
+    width: 100%;
+    padding: 10px 0;
+    gap: 12px;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .hour-card {
+    min-width: 100px;
+    padding: 12px;
+  }
+
+  .hour-card h1 {
+    font-size: 1.8rem;
+  }
+
+  .hour-card .temperature {
+    font-size: 1.2rem;
+  }
+
+  /* 7 DAY FORECAST */
+
+  .dayforecast{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:15px;
+
+    width:100%;
+    margin:0;
+    padding:15px;
+  }
+
+  .dayforecast::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dayforecast .daycard{
+  flex:1 1 160px;
+
+  min-width:160px;
+  max-width:220px;
+
+  padding:18px;
+  border-radius:20px;
+}
+
+  /* WEATHER INFO CARDS */
+
+  .extra_info_card,
+  .extra-info-card-uvindex {
+    width: 100%;
+    margin-top: 0;
+    height: auto;
+    padding: 20px;
+    min-height: 120px;
+    border-radius: 20px;
+    font-size: 1.5rem;
+  }
+
+  /* FAVOURITES */
+
+  .favourites {
+    width: 100%;
+    margin: 0;
+    padding: 10px;
   }
 
   .favourites > button {
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius-sm);
+    width: 100%;
+    font-size: 1.2rem;
   }
 
   .favouritesContainer {
-    width: auto;
-    min-width: fit-content;
-    height: 60px;
+    width: 100%;
+    max-width: none;
     font-size: 1rem;
-    padding: 10px 12px;
-    border-radius: var(--radius-md);
-    gap: var(--space-sm);
+    padding: 12px;
   }
 
-  .removeFavsBtn {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    font-size: 1rem;
-  }
-
+  .removeFavsBtn,
   .closeFavsBtn {
     width: 40px;
     height: 40px;
-    font-size: 1.2rem;
+    font-size: 1rem;
+  }
+
+  .fav-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 1.4rem;
   }
 }
+
